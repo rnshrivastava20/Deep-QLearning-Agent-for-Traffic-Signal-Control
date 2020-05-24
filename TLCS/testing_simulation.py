@@ -140,11 +140,11 @@ class Simulation:
         if action_number == 0:
             traci.trafficlight.setPhase("TL", PHASE_NS_GREEN)
         elif action_number == 1:
-            traci.trafficlight.setPhase("TL", PHASE_NSL_GREEN)
+            traci.trafficlight.setPhase("TL", PHASE_NSR_GREEN)
         elif action_number == 2:
             traci.trafficlight.setPhase("TL", PHASE_EW_GREEN)
         elif action_number == 3:
-            traci.trafficlight.setPhase("TL", PHASE_EWL_GREEN)
+            traci.trafficlight.setPhase("TL", PHASE_EWR_GREEN)
 
 
     def _get_queue_length(self):
