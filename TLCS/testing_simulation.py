@@ -165,7 +165,7 @@ class Simulation:
         """
         state = np.zeros(self._num_states)
         car_list = traci.vehicle.getIDList()
-
+        # Rewrite the whole lane logic to accomadate for a free left turn
         for car_id in car_list:
             lane_pos = traci.vehicle.getLanePosition(car_id)
             lane_id = traci.vehicle.getLaneID(car_id)
@@ -195,19 +195,19 @@ class Simulation:
 
             # finding the lane where the car is located 
             # x2TL_3 are the "turn left only" lanes
-            if lane_id == "W2TL_0" or lane_id == "W2TL_1" or lane_id == "W2TL_2":
+            if lane_id == "W2TL_1" or lane_id == "W2TL_2":
                 lane_group = 0
             elif lane_id == "W2TL_3":
                 lane_group = 1
-            elif lane_id == "N2TL_0" or lane_id == "N2TL_1" or lane_id == "N2TL_2":
+            elif lane_id == "N2TL_1" or lane_id == "N2TL_2":
                 lane_group = 2
             elif lane_id == "N2TL_3":
                 lane_group = 3
-            elif lane_id == "E2TL_0" or lane_id == "E2TL_1" or lane_id == "E2TL_2":
+            elif lane_id == "E2TL_1" or lane_id == "E2TL_2":
                 lane_group = 4
             elif lane_id == "E2TL_3":
                 lane_group = 5
-            elif lane_id == "S2TL_0" or lane_id == "S2TL_1" or lane_id == "S2TL_2":
+            elif lane_id == "S2TL_1" or lane_id == "S2TL_2":
                 lane_group = 6
             elif lane_id == "S2TL_3":
                 lane_group = 7
