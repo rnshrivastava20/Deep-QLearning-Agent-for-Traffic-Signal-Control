@@ -7,12 +7,12 @@ import os
 # phase codes based on environment.net.xml
 PHASE_NS_GREEN = 0  # action 0 code 00
 PHASE_NS_YELLOW = 1
-PHASE_NSL_GREEN = 2  # action 1 code 01
-PHASE_NSL_YELLOW = 3
+PHASE_NSR_GREEN = 2  # action 1 code 01
+PHASE_NSR_YELLOW = 3
 PHASE_EW_GREEN = 4  # action 2 code 10
 PHASE_EW_YELLOW = 5
-PHASE_EWL_GREEN = 6  # action 3 code 11
-PHASE_EWL_YELLOW = 7
+PHASE_EWR_GREEN = 6  # action 3 code 11
+PHASE_EWR_YELLOW = 7
 
 
 class Simulation:
@@ -163,11 +163,11 @@ class Simulation:
         if action_number == 0:
             traci.trafficlight.setPhase("TL", PHASE_NS_GREEN)
         elif action_number == 1:
-            traci.trafficlight.setPhase("TL", PHASE_NSL_GREEN)
+            traci.trafficlight.setPhase("TL", PHASE_NSR_GREEN)
         elif action_number == 2:
             traci.trafficlight.setPhase("TL", PHASE_EW_GREEN)
         elif action_number == 3:
-            traci.trafficlight.setPhase("TL", PHASE_EWL_GREEN)
+            traci.trafficlight.setPhase("TL", PHASE_EWR_GREEN)
 
 
     def _get_queue_length(self):
