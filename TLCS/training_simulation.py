@@ -52,7 +52,7 @@ class Simulation:
         self._sum_queue_length = 0
         self._sum_waiting_time = 0
         old_total_wait = 0
-        #old_queue_length = 0
+        old_queue_length = 0
         old_state = -1
         old_action = -1
 
@@ -60,12 +60,12 @@ class Simulation:
 
             # get current state of the intersection
             current_state = self._get_state()
-            #queue_length= self._get_queue_length()
             # calculate reward of previous action: (change in cumulative waiting time between actions)
             # waiting time = seconds waited by a car since the spawn in the environment, cumulated for every car in incoming lanes
+            current_queue_length= self._get_queue_length()
             current_total_wait = self._collect_waiting_times()
-            reward = old_total_wait - current_total_wait
-            #reward = (old_total_wait - current_total_wait) + (old_queue_length - queque_length)
+            #reward = old_total_wait - current_total_wait
+            reward = (old_total_wait - current_total_wait) + (old_queue_length - current_queue_length)
 
 
             # saving the data into the memory
@@ -88,11 +88,11 @@ class Simulation:
             old_state = current_state
             old_action = action
             old_total_wait = current_total_wait
-            #old_queue_length = queue_length
+            old_queue_length = current_queue_length
 
             # saving only the meaningful reward to better see if the agent is behaving correctly
             if reward < 0:
-                self._sum_neg_reward += reward
+                self._sum_neg_reward += reward 
 
         self._save_episode_stats()
         print("Total reward:", self._sum_neg_reward, "- Epsilon:", round(epsilon, 2))
