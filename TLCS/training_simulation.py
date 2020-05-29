@@ -65,8 +65,8 @@ class Simulation:
             current_queue_length= self._get_queue_length()
             current_total_wait = self._collect_waiting_times()
             #reward = old_total_wait - current_total_wait
-            reward = (old_total_wait - current_total_wait) + (old_queue_length - current_queue_length)
-
+            #reward = (old_total_wait - current_total_wait) + (old_queue_length - current_queue_length)
+            reward = - current_total_wait 
 
             # saving the data into the memory
             if self._step != 0:
