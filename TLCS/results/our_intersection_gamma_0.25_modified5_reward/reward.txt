@@ -1,0 +1,1 @@
+reward = (0.9*old_total_wait - current_total_wait) + (0.9*old_queue_length - current_queue_length)
