@@ -1,0 +1,1 @@
+old waiting time - current waiting time - current queue length
