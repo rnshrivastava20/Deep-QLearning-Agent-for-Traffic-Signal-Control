@@ -13,9 +13,9 @@ from utils import import_STL_configuration, set_sumo, set_STL_path
 
 if __name__ == "__main__":
 
-    config = import_train_configuration(config_file='STL_settings.ini')
+    config = import_STL_configuration(config_file='STL_settings.ini')
     sumo_cmd = set_sumo(config['gui'], config['sumocfg_file_name'], config['max_steps'])
-    path = set_train_path(config['models_path_name'])
+    path = set_STL_path(config['models_path_name'])
 
     TrafficGen = TrafficGenerator(
         config['max_steps'], 
