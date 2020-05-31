@@ -31,6 +31,24 @@ def import_train_configuration(config_file):
     config['sumocfg_file_name'] = content['dir']['sumocfg_file_name']
     return config
 
+def import_STL_configuration(config_file):
+    """
+    Read the config file regarding the training and import its content
+    """
+    content = configparser.ConfigParser()
+    content.read(config_file)
+    config = {}
+    config['gui'] = content['simulation'].getboolean('gui')
+    config['total_episodes'] = content['simulation'].getint('total_episodes')
+    config['max_steps'] = content['simulation'].getint('max_steps')
+    config['n_cars_generated'] = content['simulation'].getint('n_cars_generated')
+    config['green_duration'] = content['simulation'].getint('green_duration')
+    config['yellow_duration'] = content['simulation'].getint('yellow_duration')
+    config['models_path_name'] = content['dir']['models_path_name']
+    config['sumocfg_file_name'] = content['dir']['sumocfg_file_name']
+    return config
+
+
 
 def import_test_configuration(config_file):
     """
