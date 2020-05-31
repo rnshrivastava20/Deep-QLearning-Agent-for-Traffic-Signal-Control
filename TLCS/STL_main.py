@@ -8,7 +8,7 @@ from shutil import copyfile
 from STL_simulation import Simulation
 from generator import TrafficGenerator
 from visualization import Visualization
-from utils import import_train_configuration, set_sumo, set_train_path
+from utils import import_train_configuration, set_sumo, set_STL_path
 
 
 if __name__ == "__main__":

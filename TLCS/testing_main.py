@@ -8,7 +8,7 @@ from testing_simulation import Simulation
 from generator import TrafficGenerator
 from model import TestModel
 from visualization import Visualization
-from utils import import_test_configuration, set_sumo, set_test_path
+from utils import import_STL_configuration, set_sumo, set_test_path
 
 
 if __name__ == "__main__":
