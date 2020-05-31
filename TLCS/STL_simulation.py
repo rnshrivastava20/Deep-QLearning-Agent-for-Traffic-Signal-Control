@@ -65,30 +65,32 @@ class Simulation:
             # choose the light phase to activate, based on the current state of the intersection
             #action = self._choose_action(current_state, epsilon)
             action = cnt%8
-            if action == 0
+            if action == 0:
                 traci.trafficlight.setPhase("TL", PHASE_NS_GREEN)
                 self._simulate(self._green_duration)
-            elif action == 1
+            elif action == 1:
                 traci.trafficlight.setPhase("TL", PHASE_NS_YELLOW)
                 self._simulate(self._yellow_duration)
-            elif action == 2
+            elif action == 2:
                 traci.trafficlight.setPhase("TL", PHASE_NSR_GREEN)
                 self._simulate(self._green_duration)
-            elif action == 3
+            elif action == 3:
                 traci.trafficlight.setPhase("TL", PHASE_NSR_YELLOW)
                 self._simulate(self._yellow_duration)
-            elif action == 4
+            elif action == 4:
                 traci.trafficlight.setPhase("TL", PHASE_EW_GREEN)
                 self._simulate(self._green_duration)
-            elif action == 5
+            elif action == 5:
                 traci.trafficlight.setPhase("TL", PHASE_EW_YELLOW)
                 self._simulate(self._yellow_duration)
-            elif action == 6
+            elif action == 6:
                 traci.trafficlight.setPhase("TL", PHASE_EWR_GREEN)
                 self._simulate(self._green_duration)
-            else
+            else :
                 traci.trafficlight.setPhase("TL", PHASE_EWR_YELLOW)
                 self._simulate(self._yellow_duration)           
+
+            cnt = cnt + 1
 
             # saving variables for later & accumulate rewardF
             old_state = current_state
@@ -100,6 +102,7 @@ class Simulation:
             # might as well save positive rewards for consideration(TO-DO)
             if reward < 0:
                 self._sum_neg_reward += reward 
+
 
         self._save_episode_stats()
         print("Total reward:", self._sum_neg_reward, "- Epsilon:", round(epsilon, 2))
@@ -174,9 +177,9 @@ class Simulation:
         return queue_length
 
     def _save_episode_stats(self):
-    """
-     Save the stats of the episode to plot the graphs at the end of the session
-     """
+        """
+        Save the stats of the episode to plot the graphs at the end of the session
+        """
     self._reward_store.append(self._sum_neg_reward)  # how much negative reward in this episode
     self._cumulative_wait_store.append(self._sum_waiting_time)  # total number of seconds waited by cars in this episode
     self._avg_queue_length_store.append(self._sum_queue_length / self._max_steps)  # average number of queued cars per step, in this episode
