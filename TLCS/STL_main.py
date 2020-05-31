@@ -36,18 +36,16 @@ if __name__ == "__main__":
 
     episode = 0
     timestamp_start = datetime.datetime.now()
-    
+
     while episode < config['total_episodes']:
         print('\n----- Episode', str(episode+1), 'of', str(config['total_episodes']))
-        simulation_time, training_time = Simulation.run(episode)  # run the simulation
+        simulation_time = Simulation.run(episode)  # run the simulation
         print('Simulation time:', simulation_time, 's')
         episode += 1
 
     print("\n----- Start time:", timestamp_start)
     print("----- End time:", datetime.datetime.now())
     print("----- Session info saved at:", path)
-
-    Model.save_model(path)
 
     copyfile(src='STL_settings.ini', dst=os.path.join(path, 'STL_settings.ini'))
 
