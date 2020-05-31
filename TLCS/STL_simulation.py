@@ -173,7 +173,7 @@ class Simulation:
         queue_length = halt_N + halt_S + halt_E + halt_W
         return queue_length
 
-     def _save_episode_stats(self):
+    def _save_episode_stats(self):
     """
      Save the stats of the episode to plot the graphs at the end of the session
      """
