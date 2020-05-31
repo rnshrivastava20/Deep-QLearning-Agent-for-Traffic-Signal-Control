@@ -26,7 +26,6 @@ class Simulation:
         self._reward_store = []
         self._cumulative_wait_store = []
         self._avg_queue_length_store = []
-        self._reward_store = []
 
     def run(self, episode):
         """
