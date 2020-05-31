@@ -33,7 +33,7 @@ class Simulation:
         self._avg_queue_length_store = []
         self._training_epochs = training_epochs
 
-    def run(self, episode, epsilon):
+    def run(self, episode):
         """
         Runs an episode of simulation, then starts a training session
         """
