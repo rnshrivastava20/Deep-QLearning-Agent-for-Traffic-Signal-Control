@@ -54,6 +54,7 @@ class Simulation:
         old_queue_length = 0
         old_state = -1
         old_action = -1
+        cnt = 0
 
         while self._step < self._max_steps:
 
@@ -68,7 +69,33 @@ class Simulation:
             #reward = -1.1*current_total_wait -1.1*current_queue_length
 
             # choose the light phase to activate, based on the current state of the intersection
-            action = self._choose_action(current_state, epsilon)
+            #action = self._choose_action(current_state, epsilon)
+            action = count%8
+            if action == 0
+                traci.trafficlight.setPhase("TL", PHASE_NS_GREEN)
+                self._simulate(self._green_duration)
+            elif action == 1
+                traci.trafficlight.setPhase("TL", PHASE_NS_YELLOW)
+                self._simulate(self._yellow_duration)
+            elif action == 2
+                traci.trafficlight.setPhase("TL", PHASE_NSR_GREEN)
+                self._simulate(self._green_duration)
+            elif action == 3
+                traci.trafficlight.setPhase("TL", PHASE_NSR_YELLOW)
+                self._simulate(self._yellow_duration)
+            elif action == 4
+                traci.trafficlight.setPhase("TL", PHASE_EW_GREEN)
+                self._simulate(self._green_duration)
+            elif action == 5
+                traci.trafficlight.setPhase("TL", PHASE_EW_YELLOW)
+                self._simulate(self._yellow_duration)
+            elif action == 6
+                traci.trafficlight.setPhase("TL", PHASE_EWR_GREEN)
+                self._simulate(self._green_duration)
+            else
+                traci.trafficlight.setPhase("TL", PHASE_EWR_YELLOW)
+                self._simulate(self._yellow_duration)           
+
 
             # if the chosen phase is different from the last phase, activate the yellow phase
             if self._step != 0 and old_action != action:
@@ -86,6 +113,7 @@ class Simulation:
             old_queue_length = current_queue_length
 
             # saving only the meaningful reward to better see if the agent is behaving correctly
+            # might as well save positive rewards for consideration(TO-DO)
             if reward < 0:
                 self._sum_neg_reward += reward 
 
@@ -101,7 +129,8 @@ class Simulation:
         training_time = round(timeit.default_timer() - start_time, 1)
 
         return simulation_time, training_time
-        def _simulate(self, steps_todo):
+    
+    def _simulate(self, steps_todo):
         """
         Execute steps in sumo while gathering statistics
         """
@@ -132,7 +161,8 @@ class Simulation:
                     del self._waiting_times[car_id] 
         total_waiting_time = sum(self._waiting_times.values())
         return total_waiting_time
-         def _set_yellow_phase(self, old_action):
+    
+    def _set_yellow_phase(self, old_action):
         """
         Activate the correct yellow light combination in sumo
         """
