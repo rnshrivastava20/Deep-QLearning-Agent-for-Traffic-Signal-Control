@@ -57,8 +57,6 @@ class Simulation:
 
         while self._step < self._max_steps:
 
-            # get current state of the intersection
-            current_state = self._get_state()
             # calculate reward of previous action: (change in cumulative waiting time between actions)
             # waiting time = seconds waited by a car since the spawn in the environment, cumulated for every car in incoming lanes
             current_queue_length= self._get_queue_length()
@@ -68,10 +66,6 @@ class Simulation:
             #reward = (0.9*old_total_wait - current_total_wait) + (0.9*old_queue_length - current_queue_length)
             reward = - current_total_wait - current_queue_length
             #reward = -1.1*current_total_wait -1.1*current_queue_length
-
-            # saving the data into the memory
-            if self._step != 0:
-                self._Memory.add_sample((old_state, old_action, reward, current_state))
 
             # choose the light phase to activate, based on the current state of the intersection
             action = self._choose_action(current_state, epsilon)
@@ -178,3 +172,12 @@ class Simulation:
     self._reward_store.append(self._sum_neg_reward)  # how much negative reward in this episode
     self._cumulative_wait_store.append(self._sum_waiting_time)  # total number of seconds waited by cars in this episode
     self._avg_queue_length_store.append(self._sum_queue_length / self._max_steps)  # average number of queued cars per step, in this episode
+
+    @property
+    def cumulative_wait_store(self):
+        return self._cumulative_wait_store
+
+
+    @property
+    def avg_queue_length_store(self):
+        return self._avg_queue_length_store
