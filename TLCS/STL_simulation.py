@@ -192,3 +192,7 @@ class Simulation:
     @property
     def avg_queue_length_store(self):
         return self._avg_queue_length_store
+
+    @property
+    def reward_store(self):
+        return self._reward_store    
