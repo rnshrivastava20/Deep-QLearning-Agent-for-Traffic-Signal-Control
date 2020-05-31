@@ -30,7 +30,6 @@ if __name__ == "__main__":
     Simulation = Simulation(
         TrafficGen,
         sumo_cmd,
-        config['gamma'],
         config['max_steps'],
         config['green_duration'],
         config['yellow_duration']
