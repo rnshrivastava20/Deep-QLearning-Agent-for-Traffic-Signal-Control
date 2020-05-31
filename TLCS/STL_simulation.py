@@ -16,22 +16,16 @@ PHASE_EWR_YELLOW = 7
 
 
 class Simulation:
-    def __init__(self, Model, Memory, TrafficGen, sumo_cmd, gamma, max_steps, green_duration, yellow_duration, num_states, num_actions, training_epochs):
-        self._Model = Model
-        self._Memory = Memory
+    def __init__(self, TrafficGen, sumo_cmd, max_steps, green_duration, yellow_duration):
         self._TrafficGen = TrafficGen
-        self._gamma = gamma
         self._step = 0
         self._sumo_cmd = sumo_cmd
         self._max_steps = max_steps
         self._green_duration = green_duration
         self._yellow_duration = yellow_duration
-        self._num_states = num_states
-        self._num_actions = num_actions
         self._reward_store = []
         self._cumulative_wait_store = []
         self._avg_queue_length_store = []
-        self._training_epochs = training_epochs
 
     def run(self, episode):
         """
@@ -70,7 +64,7 @@ class Simulation:
 
             # choose the light phase to activate, based on the current state of the intersection
             #action = self._choose_action(current_state, epsilon)
-            action = count%8
+            action = cnt%8
             if action == 0
                 traci.trafficlight.setPhase("TL", PHASE_NS_GREEN)
                 self._simulate(self._green_duration)
@@ -96,17 +90,7 @@ class Simulation:
                 traci.trafficlight.setPhase("TL", PHASE_EWR_YELLOW)
                 self._simulate(self._yellow_duration)           
 
-
-            # if the chosen phase is different from the last phase, activate the yellow phase
-            if self._step != 0 and old_action != action:
-                self._set_yellow_phase(old_action)
-                self._simulate(self._yellow_duration)
-
-            # execute the phase selected before
-            self._set_green_phase(action)
-            self._simulate(self._green_duration)
-
-            # saving variables for later & accumulate reward
+            # saving variables for later & accumulate rewardF
             old_state = current_state
             old_action = action
             old_total_wait = current_total_wait
@@ -122,13 +106,7 @@ class Simulation:
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
 
-        print("Training...")
-        start_time = timeit.default_timer()
-        for _ in range(self._training_epochs):
-            self._replay()
-        training_time = round(timeit.default_timer() - start_time, 1)
-
-        return simulation_time, training_time
+        return simulation_time
     
     def _simulate(self, steps_todo):
         """
