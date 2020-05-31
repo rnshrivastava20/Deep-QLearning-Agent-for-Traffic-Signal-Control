@@ -10,7 +10,6 @@ from generator import TrafficGenerator
 from visualization import Visualization
 from utils import import_STL_configuration, set_sumo, set_STL_path
 
-
 if __name__ == "__main__":
 
     config = import_STL_configuration(config_file='STL_settings.ini')
@@ -34,6 +33,10 @@ if __name__ == "__main__":
         config['green_duration'],
         config['yellow_duration']
     )
+
+    episode = 0
+    timestamp_start = datetime.datetime.now()
+    
     while episode < config['total_episodes']:
         print('\n----- Episode', str(episode+1), 'of', str(config['total_episodes']))
         simulation_time, training_time = Simulation.run(episode)  # run the simulation

@@ -94,8 +94,8 @@ class Simulation:
             cnt = cnt + 1
 
             # saving variables for later & accumulate rewardF
-            old_state = current_state
-            old_action = action
+            #old_state = current_state
+            #old_action = action
             old_total_wait = current_total_wait
             old_queue_length = current_queue_length
 
@@ -106,7 +106,7 @@ class Simulation:
 
 
         self._save_episode_stats()
-        print("Total reward:", self._sum_neg_reward, "- Epsilon:", round(epsilon, 2))
+        print("Total reward:", self._sum_neg_reward)
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
 
