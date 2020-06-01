@@ -52,19 +52,10 @@ class Simulation:
 
         while self._step < self._max_steps:
 
-            # calculate reward of previous action: (change in cumulative waiting time between actions)
-            # waiting time = seconds waited by a car since the spawn in the environment, cumulated for every car in incoming lanes
-            current_queue_length= self._get_queue_length()
-            current_total_wait = self._collect_waiting_times()
-            #reward = old_total_wait - current_total_wait
-            #reward = (old_total_wait - current_total_wait) + (old_queue_length - current_queue_length)
-            #reward = (0.9*old_total_wait - current_total_wait) + (0.9*old_queue_length - current_queue_length)
-            reward = - current_total_wait - current_queue_length
-            #reward = -1.1*current_total_wait -1.1*current_queue_length
-
-            # choose the light phase to activate, based on the current state of the intersection
-            #action = self._choose_action(current_state, epsilon)
+            # Cylce through all states one by one        
+            
             action = cnt%8
+            
             if action == 0:
                 traci.trafficlight.setPhase("TL", PHASE_NS_GREEN)
                 self._simulate(self._green_duration)
@@ -92,20 +83,10 @@ class Simulation:
 
             cnt = cnt + 1
 
-            # saving variables for later & accumulate rewardF
-            #old_state = current_state
-            #old_action = action
-            old_total_wait = current_total_wait
-            old_queue_length = current_queue_length
-
-            # saving only the meaningful reward to better see if the agent is behaving correctly
-            # might as well save positive rewards for consideration(TO-DO)
-            if reward < 0:
-                self._sum_neg_reward += reward 
 
 
         self._save_episode_stats()
-        print("Total reward:", self._sum_neg_reward)
+        #print("Total reward:", self._sum_neg_reward)
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
 
@@ -180,7 +161,6 @@ class Simulation:
         """
         Save the stats of the episode to plot the graphs at the end of the session
         """
-        self._reward_store.append(self._sum_neg_reward)  # how much negative reward in this episode
         self._cumulative_wait_store.append(self._sum_waiting_time)  # total number of seconds waited by cars in this episode
         self._avg_queue_length_store.append(self._sum_queue_length / self._max_steps)  # average number of queued cars per step, in this episode
 
