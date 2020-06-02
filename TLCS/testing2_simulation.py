@@ -91,8 +91,8 @@ class Simulation:
             if reward < 0:
                 self._sum_neg_reward += reward 
 
-            self._save_episode_stats()    
-
+               
+        self._save_episode_stats() 
         #print("Total reward:", np.sum(self._reward_episode))
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
