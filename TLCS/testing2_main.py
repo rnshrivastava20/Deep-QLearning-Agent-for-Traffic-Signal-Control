@@ -13,9 +13,9 @@ from utils import import_test2_configuration, set_sumo, set_test2_path
 
 if __name__ == "__main__":
 
-    config = import_test_configuration(config_file='testing2_settings.ini')
+    config = import_test2_configuration(config_file='testing2_settings.ini')
     sumo_cmd = set_sumo(config['gui'], config['sumocfg_file_name'], config['max_steps'])
-    model_path, plot_path = set_test_path(config['models_path_name'], config['model_to_test'])
+    model_path, plot_path = set_test2_path(config['models_path_name'], config['model_to_test'])
 
     Model = TestModel(
         input_dim=config['num_states'],
@@ -47,6 +47,7 @@ if __name__ == "__main__":
         print('\n----- Test episode')
         simulation_time = Simulation.run(config['episode_seed'])  # run the simulation
         print('Simulation time:', simulation_time, 's')
+        episodes += 1
 
     print("----- Testing info saved at:", plot_path)
 

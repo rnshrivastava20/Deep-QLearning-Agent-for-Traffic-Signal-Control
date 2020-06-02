@@ -46,6 +46,9 @@ class Simulation:
         # inits
         self._step = 0
         self._waiting_times = {}
+        self._sum_neg_reward = 0
+        self._sum_queue_length = 0
+        self._sum_waiting_time = 0
         old_total_wait = 0
         old_queue_length = 0
         old_action = -1 # dummy init
@@ -250,7 +253,7 @@ class Simulation:
         self._reward_store.append(self._sum_neg_reward)  # how much negative reward in this episode
         self._cumulative_wait_store.append(self._sum_waiting_time)  # total number of seconds waited by cars in this episode
         self._avg_queue_length_store.append(self._sum_queue_length / self._max_steps)  # average number of queued cars per step, in this episode
-        
+
 
     @property
     def reward_store(self):
