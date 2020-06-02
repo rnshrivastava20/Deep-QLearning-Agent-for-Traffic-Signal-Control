@@ -8,7 +8,7 @@ from testing2_simulation import Simulation
 from generator import TrafficGenerator
 from model import TestModel
 from visualization import Visualization
-from utils import import_test2_configuration, set_sumo, set_test_path
+from utils import import_test2_configuration, set_sumo, set_test2_path
 
 
 if __name__ == "__main__":
@@ -42,14 +42,16 @@ if __name__ == "__main__":
         config['num_states'],
         config['num_actions']
     )
-
-    print('\n----- Test episode')
-    simulation_time = Simulation.run(config['episode_seed'])  # run the simulation
-    print('Simulation time:', simulation_time, 's')
+    episodes = 0
+    while episodes < 5 :
+        print('\n----- Test episode')
+        simulation_time = Simulation.run(config['episode_seed'])  # run the simulation
+        print('Simulation time:', simulation_time, 's')
 
     print("----- Testing info saved at:", plot_path)
 
     copyfile(src='testing_settings.ini', dst=os.path.join(plot_path, 'testing_settings.ini'))
 
-    Visualization.save_data_and_plot(data=Simulation.reward_episode, filename='reward', xlabel='Action step', ylabel='Reward')
-    Visualization.save_data_and_plot(data=Simulation.queue_length_episode, filename='queue', xlabel='Step', ylabel='Queue lenght (vehicles)')
+    Visualization.save_data_and_plot(data=Simulation.reward_store, filename='reward', xlabel='Episode', ylabel='Cumulative negative reward')
+    Visualization.save_data_and_plot(data=Simulation.cumulative_wait_store, filename='delay', xlabel='Episode', ylabel='Cumulative delay (s)')
+    Visualization.save_data_and_plot(data=Simulation.avg_queue_length_store, filename='queue', xlabel='Episode', ylabel='Average queue length (vehicles)')
