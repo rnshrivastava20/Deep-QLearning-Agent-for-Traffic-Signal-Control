@@ -70,6 +70,25 @@ def import_test_configuration(config_file):
     config['model_to_test'] = content['dir'].getint('model_to_test') 
     return config
 
+def import_test2_configuration(config_file):
+    """
+    Read the config file regarding the testing and import its content
+    """
+    content = configparser.ConfigParser()
+    content.read(config_file)
+    config = {}
+    config['gui'] = content['simulation'].getboolean('gui')
+    config['max_steps'] = content['simulation'].getint('max_steps')
+    config['n_cars_generated'] = content['simulation'].getint('n_cars_generated')
+    config['episode_seed'] = content['simulation'].getint('episode_seed')
+    config['green_duration'] = content['simulation'].getint('green_duration')
+    config['yellow_duration'] = content['simulation'].getint('yellow_duration')
+    config['num_states'] = content['agent'].getint('num_states')
+    config['num_actions'] = content['agent'].getint('num_actions')
+    config['sumocfg_file_name'] = content['dir']['sumocfg_file_name']
+    config['models_path_name'] = content['dir']['models_path_name']
+    config['model_to_test'] = content['dir'].getint('model_to_test') 
+    return config
 
 def set_sumo(gui, sumocfg_file_name, max_steps):
     """
@@ -144,3 +163,16 @@ def set_test_path(models_path_name, model_n):
         return model_folder_path, plot_path
     else: 
         sys.exit('The model number specified does not exist in the models folder')
+
+def set_test2_path(models_path_name, model_n):
+    """
+    Returns a model path that identifies the model number provided as argument and a newly created 'test' path
+    """
+    model_folder_path = os.path.join(os.getcwd(), models_path_name, 'model_'+str(model_n), '')
+
+    if os.path.isdir(model_folder_path):    
+        plot_path = os.path.join(model_folder_path, 'test2', '')
+        os.makedirs(os.path.dirname(plot_path), exist_ok=True)
+        return model_folder_path, plot_path
+    else: 
+        sys.exit('The model number specified does not exist in the models folder')        
