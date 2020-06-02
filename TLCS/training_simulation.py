@@ -122,10 +122,9 @@ class Simulation:
             self._step += 1 # update the step counter
             steps_todo -= 1
             queue_length = self._get_queue_length()
-            #total_waiting_time = self._collect_waiting_times()
             self._sum_queue_length += queue_length
             self._sum_waiting_time += queue_length # 1 step while wating in queue means 1 second waited, for each car, therefore queue_lenght == waited_seconds
-            #self._sum_waiting_time += total_waiting_time
+
 
     def _collect_waiting_times(self):
         """

@@ -42,17 +42,14 @@ if __name__ == "__main__":
         config['num_states'],
         config['num_actions']
     )
-    episode = 0 
-    while episode < 5 :
-        print('\n----- Test Episode', str(episode+1), 'of 5')
-        simulation_time = Simulation.run(config['episode_seed'])  # run the simulation
-        print('Simulation time:', simulation_time, 's')
-        episode += 1
+
+    print('\n----- Test episode')
+    simulation_time = Simulation.run(config['episode_seed'])  # run the simulation
+    print('Simulation time:', simulation_time, 's')
 
     print("----- Testing info saved at:", plot_path)
 
     copyfile(src='testing_settings.ini', dst=os.path.join(plot_path, 'testing_settings.ini'))
 
-    Visualization.save_data_and_plot(data=Simulation.cumulative_wait_store, filename='delay', xlabel='Episode', ylabel='Cumulative delay (s)')
     Visualization.save_data_and_plot(data=Simulation.reward_episode, filename='reward', xlabel='Action step', ylabel='Reward')
-    Visualization.save_data_and_plot(data=Simulation.queue_length_episode, filename='queue', xlabel='Step', ylabel='Queue length (vehicles)')
+    Visualization.save_data_and_plot(data=Simulation.queue_length_episode, filename='queue', xlabel='Step', ylabel='Queue lenght (vehicles)')
